@@ -1,0 +1,91 @@
+let SessionLoad = 1
+let s:so_save = &g:so | let s:siso_save = &g:siso | setg so=0 siso=0 | setl so=-1 siso=-1
+let v:this_session=expand("<sfile>:p")
+silent only
+silent tabonly
+cd ~/zppskills/计算机科学与技术/编程技术/python
+if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
+  let s:wipebuf = bufnr('%')
+endif
+set shortmess=aoO
+badd +56 doc/README.md
+badd +20 ~/zppskills/计算机科学与技术/编程技术/python/src/a.py
+badd +92 ~/.config/nvim/plugged/vim-snippets/UltiSnips/markdown.snippets
+badd +47 ~/.config/nvim/init.vim
+argglobal
+%argdel
+edit ~/.config/nvim/init.vim
+set splitbelow splitright
+wincmd _ | wincmd |
+vsplit
+1wincmd h
+wincmd w
+wincmd t
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+exe 'vert 1resize ' . ((&columns * 137 + 138) / 276)
+exe 'vert 2resize ' . ((&columns * 138 + 138) / 276)
+argglobal
+balt ~/.config/nvim/plugged/vim-snippets/UltiSnips/markdown.snippets
+setlocal fdm=marker
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+1
+normal! zo
+79
+normal! zo
+204
+normal! zo
+505
+normal! zo
+let s:l = 509 - ((280 * winheight(0) + 32) / 65)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 509
+normal! 025|
+wincmd w
+argglobal
+if bufexists("doc/README.md") | buffer doc/README.md | else | edit doc/README.md | endif
+if &buftype ==# 'terminal'
+  silent file doc/README.md
+endif
+balt ~/.config/nvim/init.vim
+setlocal fdm=marker
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 56 - ((55 * winheight(0) + 32) / 65)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 56
+normal! 017|
+wincmd w
+exe 'vert 1resize ' . ((&columns * 137 + 138) / 276)
+exe 'vert 2resize ' . ((&columns * 138 + 138) / 276)
+tabnext 1
+if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0&& getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
+  silent exe 'bwipe ' . s:wipebuf
+endif
+unlet! s:wipebuf
+set winheight=1 winwidth=20 winminheight=1 winminwidth=1 shortmess=filnxtToOFIc
+let s:sx = expand("<sfile>:p:r")."x.vim"
+if filereadable(s:sx)
+  exe "source " . fnameescape(s:sx)
+endif
+let &g:so = s:so_save | let &g:siso = s:siso_save
+doautoall SessionLoadPost
+unlet SessionLoad
+" vim: set ft=vim :
